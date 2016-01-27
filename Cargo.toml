@@ -1,0 +1,9 @@
+[package]
+
+name = "snooper"
+version = "0.0.1"
+authors = [ "Brian Mooney <brian_satchwannabe@hotmail.com>" ]
+
+[[bin]]
+
+name = "snooper"
