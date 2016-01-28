@@ -1,0 +1,6 @@
+# Hide eclipse Shite
+.project/
+target/
+
+# Hide CArgo lock file
+Cargo.lock
