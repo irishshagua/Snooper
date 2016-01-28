@@ -1,5 +1,5 @@
 # Hide eclipse Shite
-.project/
+.project
 target/
 
 # Hide CArgo lock file
