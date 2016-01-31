@@ -45,11 +45,11 @@ fn main() {
         Err(_) => { println!("Ohhhhhhh SHIT!!!!") }
       }
     }
-	}
+  }
 
-	// accept connections and process them, spawning a new thread for each one TODO: Update to metal IO event notifier
-	for stream in listener.incoming() {
-	  match stream {
+  // accept connections and process them, spawning a new thread for each one TODO: Update to metal IO event notifier
+  for stream in listener.incoming() {
+    match stream {
       Ok(stream) => {
         match stream.peer_addr() {
           Ok(socket_addr) => {
@@ -72,9 +72,9 @@ fn main() {
       Err(e) => {
         println!("Shit be fooked!: {}", e) 
       }
-	  }
-	}
+    }
+  }
 
-	// close the socket server
-	drop(listener);
+  // close the socket server
+  drop(listener);
 }
