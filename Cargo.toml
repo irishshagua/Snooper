@@ -1,14 +1,12 @@
 [package]
-
 name = "snooper"
-version = "0.0.1"
+version = "0.0.2"
 authors = [ "Brian Mooney <brian_satchwannabe@hotmail.com>" ]
 
 [[bin]]
-
 name = "snooper"
 
 [dependencies]
-
 docopt = "0.6"
 rustc-serialize = "0.3"
+mio = "0.5"
