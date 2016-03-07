@@ -14,12 +14,21 @@ pub struct ProxyServer {
 }
 
 impl ProxyServer {
+  
   pub fn new(socket: TcpListener) -> ProxyServer {
     ProxyServer {
       socket: socket,
       clients: HashMap::new(),
       token_counter: 1
     }
+  }
+
+  fn register_new_client(&mut self, client: TcpStream) -> Token {
+    let new_token = Token(self.token_counter);
+    self.clients.insert(new_token, ClientConnection::new(client));
+    self.token_counter += 1;
+
+    new_token
   }
 }
 
@@ -38,16 +47,13 @@ impl Handler for ProxyServer {
             },
             Ok(None) => unreachable!(),
             Err(e) => {
-                println!("Accept error: {}", e);
-                return;
+              println!("Accept error: {}", e);
+              return;
             }
           };
 
-          let new_token = Token(self.token_counter);
-          self.clients.insert(new_token, ClientConnection::new(client_socket));
-          self.token_counter += 1;
-
-          event_loop.register(&self.clients[&new_token].socket, new_token, EventSet::readable(),
+          let token = self.register_new_client(client_socket);
+          event_loop.register(&self.clients[&token].socket, token, EventSet::readable(),
                               PollOpt::edge() | PollOpt::oneshot()).unwrap();
         },
         token => {

@@ -1,7 +1,9 @@
 extern crate rustc_serialize;
+extern crate httparse;
 extern crate docopt;
 extern crate mio;
 
+mod http;
 mod server;
 mod client;
 

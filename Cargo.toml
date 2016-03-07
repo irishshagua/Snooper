@@ -1,6 +1,6 @@
 [package]
 name = "snooper"
-version = "0.0.2"
+version = "0.0.3"
 authors = [ "Brian Mooney <brian_satchwannabe@hotmail.com>" ]
 
 [[bin]]
@@ -10,3 +10,4 @@ name = "snooper"
 docopt = "0.6"
 rustc-serialize = "0.3"
 mio = "0.5"
+httparse = "1.1.1"

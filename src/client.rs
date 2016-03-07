@@ -1,5 +1,6 @@
 use mio::*;
 use mio::tcp::*;
+use http::HttpParser;
 
 pub struct ClientConnection {
   pub socket: TcpStream,
@@ -13,7 +14,7 @@ impl ClientConnection {
       interest: EventSet::readable()
     }
   }
-  
+
   pub fn read(&mut self) -> bool {
     let mut buf = [0; 2048];
     match self.socket.try_read(&mut buf) {
@@ -28,7 +29,11 @@ impl ClientConnection {
       Ok(Some(len)) => {
         match len {
           x if x > 0 => {
-            println!("Client({}): {}", self.socket.peer_addr().unwrap().port(), String::from_utf8_lossy(&buf));
+            let http_request = HttpParser::parse_http_request(&buf);
+            println!("Client({}): Req Method: {:?}, Path: {}", 
+              self.socket.peer_addr().unwrap().port(), 
+              http_request.0,
+              http_request.1);
             true
           }
           _ => {
